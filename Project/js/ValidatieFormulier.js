@@ -5,6 +5,9 @@ paymentAlert.style.display = 'none'
 completionAlert.style.display = 'none'
 errorAlert.style.display = 'none'
 
+
+
+
 // functie met de volledige validatie van het formulier
 function validateForm() {
   // Alerts
@@ -40,7 +43,7 @@ function validateForm() {
     "input[name=radioBetaling]:checked"
   ).value;
 
-  // controleren of inputs leeg zijn
+  // controleren of inputs leeg zijn of een andere controle uitvoeren
   checkEmptyField(voornaam, "het veld voornaam is vereist.");
   checkEmptyField(naam, "het veld naam is vereist.");
   checkGebruikersnaam(gebruikersNaam);
@@ -50,35 +53,34 @@ function validateForm() {
     if (email != "") foutmeldingen.push("E-mailadres is niet correct");
   }
   checkWachtwoord(wachtwoord, wachtwoordControle);
-
   checkEmptyField(adres, "het veld adres is vereist.");
-
   checkEmptyField(land, "het veld land is vereist.");
-
   checkEmptyField(provincie, "het veld provincie is vereist.");
-
   checkPostcode(postcode);
-
   checkEmptyField(nieuwbrief, "het veld nieuwbrief is vereist.");
-
   checkVoorwaarden(voorwaarden);
-
   checkEmptyField(betalingsMethode, "het veld betalingOptie is vereist.");
   checkBetalingsMethode(betalingsMethode);
 
+  // de foutmeldingen tonen en de andere 2 alert verwijderen
   if (foutmeldingen.length != 0) {
     paymentAlert.style.display = 'none'
     completionAlert.style.display = 'none'
     errorAlert.style.display = 'block'
   }
 
+  // de foutmeldingen verwijderen en de andere alert tonen
   if(foutmeldingen.length == 0){
     paymentAlert.style.display = 'block'
     completionAlert.style.display = 'block'
     errorAlert.style.display = 'none'
+
+    //velden leeg maken na het succesvol invullen van de form
+    let form = document.getElementById('form')
+    form.reset();
   }
 
-  //
+  // de foutmeldingen in de alert tonen
   if (foutmeldingen.length > 0) {
     foutmeldingen.forEach((element) => {
       pError.innerText += element + "\n";
