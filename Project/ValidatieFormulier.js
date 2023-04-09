@@ -1,6 +1,10 @@
 // array met foutmeldingen
 let foutmeldingen = [];
 
+paymentAlert.style.display = 'none'
+completionAlert.style.display = 'none'
+errorAlert.style.display = 'none'
+
 // functie met de volledige validatie van het formulier
 function validateForm() {
   // Alerts
@@ -15,7 +19,6 @@ function validateForm() {
 
   // Alerts leegmaken
   pError.innerText = "";
-  pOke.innerText = "";
   pBetaling.innerText = "";
 
   //inputs
@@ -32,9 +35,9 @@ function validateForm() {
   let provincie = document.getElementById("inputProvincie").value;
   let postcode = document.getElementById("inputPostcode").value;
   let nieuwbrief = document.getElementById("inputNieuwsbrief").value;
-  let voorwaarden = document.getElementById("inputVoorwaarden").value;
-  let betalingOptie = document.querySelector(
-    'input[name="radioBetaling"]:checked'
+  let voorwaarden = document.getElementById("inputVoorwaarden").checked;
+  let betalingsMethode = document.querySelector(
+    "input[name=radioBetaling]:checked"
   ).value;
 
   // controleren of inputs leeg zijn
@@ -46,16 +49,35 @@ function validateForm() {
   if (!validateEmail(email)) {
     if (email != "") foutmeldingen.push("E-mailadres is niet correct");
   }
-
   checkWachtwoord(wachtwoord, wachtwoordControle);
 
   checkEmptyField(adres, "het veld adres is vereist.");
+
   checkEmptyField(land, "het veld land is vereist.");
+
   checkEmptyField(provincie, "het veld provincie is vereist.");
-  checkEmptyField(postcode, "het veld postcode is vereist.");
+
+  checkPostcode(postcode);
+
   checkEmptyField(nieuwbrief, "het veld nieuwbrief is vereist.");
-  checkEmptyField(voorwaarden, "het veld voorwaarden is vereist.");
-  checkEmptyField(betalingOptie, "het veld betalingOptie is vereist.");
+
+  checkVoorwaarden(voorwaarden);
+
+  checkEmptyField(betalingsMethode, "het veld betalingOptie is vereist.");
+  checkBetalingsMethode(betalingsMethode);
+
+  if (foutmeldingen.length != 0) {
+    paymentAlert.style.display = 'none'
+    completionAlert.style.display = 'none'
+    errorAlert.style.display = 'block'
+  }
+
+  if(foutmeldingen.length == 0){
+    paymentAlert.style.display = 'block'
+    completionAlert.style.display = 'block'
+    errorAlert.style.display = 'none'
+  }
+
   //
   if (foutmeldingen.length > 0) {
     foutmeldingen.forEach((element) => {
@@ -77,8 +99,7 @@ function checkEmptyField(veld, melding) {
 function validateEmail(emailadres) {
   //https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
   let regex =
-  /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/
-
+    /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
 
   // controle email op format
   if (emailadres.match(regex)) {
@@ -112,4 +133,25 @@ function checkGebruikersnaam(gebruiker) {
   }
 }
 
+//functie die controleert of de postcode tussen de 1000 en de 9999 zit
+function checkPostcode(code) {
+  checkEmptyField(code, "het veld postcode is vereist.");
+  if (code.length != 0) {
+    if (code < 1000 || code >> 9999) {
+      foutmeldingen.push("De postcode moet tussen de 1000 en 9999 zijn");
+    }
+  }
+}
 
+//functie die controleert of de gebruiker akkoord is met de voorwaarden
+function checkVoorwaarden(voorwaarden) {
+  if (!voorwaarden) {
+    foutmeldingen.push("Je moet de algmene voorwaarden accepteren.");
+  }
+}
+
+//functie zet in alert over de betaling de juiste betalingswijze
+//https://stackoverflow.com/questions/9561625/checking-value-of-radio-button-group-via-jquery
+function checkBetalingsMethode(methode) {
+  pBetaling.innerText = `Je betalingswijze is ${methode}`;
+}

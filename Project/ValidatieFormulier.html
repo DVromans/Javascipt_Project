@@ -126,14 +126,7 @@
               </div>
               <div class="col-md-4">
                 <label for="inputPostcode">Postcode</label>
-                <select id="inputPostcode" class="form-select">
-                  <option value="" selected disabled hidden>
-                    Kies een postcode
-                  </option>
-                  <option value="3920">3920</option>
-                  <option value="3900">3900</option>
-                  <option value="3910">3910</option>
-                </select>
+                <input type="number" id="inputPostcode" class="form-control">
               </div>
             </div>
             <hr />
@@ -227,10 +220,12 @@
             <h4>Yikes, errors..</h4>
             <p id="pError"></p>
           </div>
-          <div class="alert alert-success" role="alert" id="completionAlert">
-            <p id="pOke"></p>
+          <div class="alert alert-success correctReg" role="alert" id="completionAlert">
+            <h4>Goed gedaan!</h4>
+            <p id="pOke">Aww yeah, je werd geregistreerd</p>
           </div>
-          <div class="alert alert-primary" role="alert" id="paymentAlert">
+          <div class="alert alert-primary correctReg" role="alert" id="paymentAlert">
+            <h4>Betalingswijze</h4>
             <p id="pBetaling"></p>
           </div>
         </div>
