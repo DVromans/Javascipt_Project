@@ -126,7 +126,7 @@
               </div>
               <div class="col-md-4">
                 <label for="inputPostcode">Postcode</label>
-                <input type="number" id="inputPostcode" class="form-control">
+                <input type="number" id="inputPostcode" class="form-control" />
               </div>
             </div>
             <hr />
@@ -209,7 +209,11 @@
             </div>
             <hr />
             <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-primary" onclick="validateForm()">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                onclick="validateForm()"
+              >
                 Wave your magic wand
               </button>
             </div>
@@ -220,11 +224,19 @@
             <h4>Yikes, errors..</h4>
             <p id="pError"></p>
           </div>
-          <div class="alert alert-success correctReg" role="alert" id="completionAlert">
+          <div
+            class="alert alert-success correctReg"
+            role="alert"
+            id="completionAlert"
+          >
             <h4>Goed gedaan!</h4>
             <p id="pOke">Aww yeah, je werd geregistreerd</p>
           </div>
-          <div class="alert alert-primary correctReg" role="alert" id="paymentAlert">
+          <div
+            class="alert alert-primary correctReg"
+            role="alert"
+            id="paymentAlert"
+          >
             <h4>Betalingswijze</h4>
             <p id="pBetaling"></p>
           </div>

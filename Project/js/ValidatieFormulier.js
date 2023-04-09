@@ -1,12 +1,9 @@
 // array met foutmeldingen
 let foutmeldingen = [];
 
-paymentAlert.style.display = 'none'
-completionAlert.style.display = 'none'
-errorAlert.style.display = 'none'
-
-
-
+paymentAlert.style.display = "none";
+completionAlert.style.display = "none";
+errorAlert.style.display = "none";
 
 // functie met de volledige validatie van het formulier
 function validateForm() {
@@ -64,19 +61,19 @@ function validateForm() {
 
   // de foutmeldingen tonen en de andere 2 alert verwijderen
   if (foutmeldingen.length != 0) {
-    paymentAlert.style.display = 'none'
-    completionAlert.style.display = 'none'
-    errorAlert.style.display = 'block'
+    paymentAlert.style.display = "none";
+    completionAlert.style.display = "none";
+    errorAlert.style.display = "block";
   }
 
   // de foutmeldingen verwijderen en de andere alert tonen
-  if(foutmeldingen.length == 0){
-    paymentAlert.style.display = 'block'
-    completionAlert.style.display = 'block'
-    errorAlert.style.display = 'none'
+  if (foutmeldingen.length == 0) {
+    paymentAlert.style.display = "block";
+    completionAlert.style.display = "block";
+    errorAlert.style.display = "none";
 
     //velden leeg maken na het succesvol invullen van de form
-    let form = document.getElementById('form')
+    let form = document.getElementById("form");
     form.reset();
   }
 
