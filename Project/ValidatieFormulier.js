@@ -40,19 +40,14 @@ function validateForm() {
   // controleren of inputs leeg zijn
   checkEmptyField(voornaam, "het veld voornaam is vereist.");
   checkEmptyField(naam, "het veld naam is vereist.");
-  checkEmptyField(gebruikersNaam, "het veld gebruikersnaam is vereist.");
+  checkGebruikersnaam(gebruikersNaam);
   checkEmptyField(email, "het veld email is vereist.");
   validateEmail(email);
   if (!validateEmail(email)) {
-    if(email != "")
-    foutmeldingen.push("E-mailadres is niet correct");
+    if (email != "") foutmeldingen.push("E-mailadres is niet correct");
   }
 
-  checkEmptyField(wachtwoord, "het veld wachtwoord is vereist.");
-  checkEmptyField(
-    wachtwoordControle,
-    "het veld herhaal wachtwoord is vereist."
-  );
+  checkWachtwoord(wachtwoord, wachtwoordControle);
 
   checkEmptyField(adres, "het veld adres is vereist.");
   checkEmptyField(land, "het veld land is vereist.");
@@ -70,19 +65,51 @@ function validateForm() {
     foutmeldingen = [];
   }
 }
+
+// controleert of het veld leeg is een geeft een foutmelding mee.
 function checkEmptyField(veld, melding) {
   if (veld == "") {
     foutmeldingen.push(melding);
   }
 }
 
+//controleert of het email adres is ingevuld en of deze het juiste formaat heeft
 function validateEmail(emailadres) {
   //https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
-  let valEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let regex =
+  /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/
+
 
   // controle email op format
-  if (emailadres.match(valEmail)) {
+  if (emailadres.match(regex)) {
     return true;
   } else false;
 }
+
+// functie controleert of hetwachtwoord langer of gelijk is aan 8 karakters en of deze overeen komen met de controle
+function checkWachtwoord(wachtwoord, wachtwoordControle) {
+  checkEmptyField(wachtwoord, "het veld wachtwoord is vereist.");
+  checkEmptyField(
+    wachtwoordControle,
+    "het veld herhaal wachtwoord is vereist."
+  );
+  if (wachtwoord < 8 && wachtwoord.length != 0) {
+    foutmeldingen.push("Wachtwoord moet langer zijn als 7 karakters.");
+  }
+  if (wachtwoord != wachtwoordControle) {
+    foutmeldingen.push("Je wachtwoorden komen niet overeen.");
+  }
+}
+
+// functie die de format van de gebruikersnaam controleert en of deze is ingevuld
+function checkGebruikersnaam(gebruiker) {
+  checkEmptyField(gebruiker, "het veld gebruikersnaam is vereist.");
+  let regex = /^(?=[a-zA-Z0-9_])(?![-.])([a-zA-Z0-9_.]){1,}$/;
+  if (gebruiker.length != 0) {
+    if (!gebruiker.match(regex)) {
+      foutmeldingen.push("De gebruikersnaam heeft een verkeerde format.");
+    }
+  }
+}
+
+
